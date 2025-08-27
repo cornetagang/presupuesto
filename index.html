@@ -1,113 +1,149 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Randomizador de Presupuesto</title>
-  <link rel="icon" type="image/png" href="https://i.imgur.com/u71QEFc.png">
-  <style>
-    body {
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-      max-width: 400px;
-      margin: 4rem auto 0rem;
-      padding-top: 50px; /* espacio para menú fijo */
-      background: linear-gradient(to bottom right, #d9e2ec);
-      text-align: center;
-      color: #333;
-    }
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: #2563eb;
-      padding: 0.75rem 1rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      z-index: 9999;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    h1 {
-      color: #2563eb;
-      margin-top: 1rem;
-      margin-bottom: 2rem;
-    }
-    #result-box {
-      margin-top: 2rem;
-      padding: 1.5rem;
-      background-color: #2563eb;
-      color: white;
-      font-size: 1.8rem;
-      font-weight: bold;
-      border-radius: 1rem;
-      box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
-      user-select: none;
-      min-height: 60px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    button {
-      background-color: #10b981;
-      color: white;
-      border: none;
-      padding: 0.75rem 2rem;
-      font-size: 1.2rem;
-      border-radius: 0.6rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 4px 8px rgba(16, 185, 129, 0.4);
-    }
-    button:hover {
-      background-color: #059669;
-    }
-  </style>
+<meta charset="UTF-8" />
+<title>Presupuesto</title>
+<link rel="icon" type="image/png" href="https://i.imgur.com/u71QEFc.png">
+<style>
+  :root {
+    --accent: #FFD700;       /* dorado */
+    --accent-2: #c44536;     /* rojo intenso */
+    --bg-crema: #fdf6e3;     /* crema */
+    --nav-bg: #2563eb;       /* azul principal */
+    --nav-hover: #1d4ed8;
+    --btn-green: #10b981;
+    --btn-green-hover: #059669;
+    --title-color: #e11d48;
+    --result-bg: #2563eb;
+    --result-color: #fff;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    max-width: 400px;
+    margin: 0 auto 2rem;
+    padding-top: 60px; /* espacio para menú fijo */
+    background: var(--bg-crema);
+    text-align: center;
+    color: #333;
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--nav-bg);
+    padding: 0.75rem 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 9999;
+  }
+
+  nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1rem;
+  }
+
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.3rem;
+    transition: background-color 0.3s ease;
+  }
+
+  nav ul li a:hover {
+    background-color: var(--nav-hover);
+  }
+
+  h1 {
+    color: var(--title-color);
+    margin-top: 0.5rem; /* título más cerca del nav */
+    margin-bottom: 2rem;
+  }
+
+  #result-box {
+    margin: 2rem 0 1rem;
+    padding: 1.5rem;
+    background-color: var(--result-bg);
+    color: var(--result-color);
+    font-size: 1.8rem;
+    font-weight: bold;
+    border-radius: 1rem;
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
+    user-select: none;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #generate-btn {
+    background-color: var(--btn-green);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(16, 185, 129, 0.4);
+    margin-top: 1rem; /* debajo del resultado */
+  }
+
+  #generate-btn:hover {
+    background-color: var(--btn-green-hover);
+  }
+</style>
 </head>
 <body>
 
-  <nav>
-    <a href="https://cornetagang.github.io/amigosecreto/">← Volver al Sorteo</a>
-  </nav>
+<nav>
+  <ul>
+    <li><a href="https://cornetagang.github.io/hallamigosecreto/">Amigos Secretos</a></li>
+    <li><a href="https://cornetagang.github.io/amigosecreto/">Volver al Sorteo</a></li>
+    <li><a href="https://cornetagang.github.io/listadeseos/">Lista de deseados</a></li>
+  </ul>
+</nav>
 
-  <h1>Randomizador de Presupuesto</h1>
+<h1>Presupuesto</h1>
 
-  <button id="generate-btn">Generar Presupuesto</button>
+<div id="result-box">El presupuesto será: </div>
+<button id="generate-btn">Generar Presupuesto</button>
 
-  <div id="result-box">El presupuesto será: —</div>
+<script>
+  const btn = document.getElementById('generate-btn');
+  const resultBox = document.getElementById('result-box');
 
-  <script>
-    const btn = document.getElementById('generate-btn');
-    const resultBox = document.getElementById('result-box');
+  function getRandomBudget() {
+    return (Math.floor(Math.random() * 8) + 3) * 1000;
+  }
 
-    function getRandomBudget() {
-      return (Math.floor(Math.random() * 8) + 3) * 1000;
-    }
+  btn.addEventListener('click', () => {
+    btn.disabled = true;
 
-    btn.addEventListener('click', () => {
-      btn.disabled = true; // para evitar múltiples clicks
+    let count = 0;
+    const animationDuration = 2500;
+    const intervalTime = 50;
+    const iterations = animationDuration / intervalTime;
 
-      let count = 0;
-      const animationDuration = 2500; // duración total animación en ms
-      const intervalTime = 50; // intervalo para cambiar número
-      const iterations = animationDuration / intervalTime;
-
-      const interval = setInterval(() => {
-        const randomNum = getRandomBudget();
-        resultBox.textContent = `El presupuesto será: $${randomNum.toLocaleString('es-CL')}`;
-        count++;
-        if (count >= iterations) {
-          clearInterval(interval);
-          btn.disabled = false; // reactivar botón
-        }
-      }, intervalTime);
-    });
-  </script>
+    const interval = setInterval(() => {
+      const randomNum = getRandomBudget();
+      resultBox.textContent = `El presupuesto será: $${randomNum.toLocaleString('es-CL')}`;
+      count++;
+      if (count >= iterations) {
+        clearInterval(interval);
+        btn.disabled = false;
+      }
+    }, intervalTime);
+  });
+</script>
 
 </body>
 </html>
