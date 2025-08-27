@@ -6,28 +6,25 @@
 <link rel="icon" type="image/png" href="https://i.imgur.com/u71QEFc.png">
 <style>
   :root {
-    --accent: #FFD700;
-    --accent-2: #c44536;
-    --bg-crema: #fdf6e3;
-    --nav-bg: #2563eb;
+    --accent: #FFD700;       
+    --accent-2: #c44536;     
+    --bg-crema: #fdf6e3;     
+    --nav-bg: #2563eb;       
     --nav-hover: #1d4ed8;
     --btn-green: #10b981;
     --btn-green-hover: #059669;
     --title-color: #e11d48;
     --result-bg: #2563eb;
     --result-color: #fff;
-    --card-bg: #ffffff;
   }
 
   body {
     font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-    margin: 0;
-    padding-top: 60px;
     background: var(--bg-crema);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+    color: #333;
+    padding-top: 80px; /* espacio para nav */
+    text-align: center;
+    margin: 0;
   }
 
   nav {
@@ -36,125 +33,84 @@
     left: 0;
     width: 100%;
     background-color: var(--nav-bg);
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     z-index: 9999;
   }
   nav ul {
     list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
     margin: 0;
     padding: 0;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
   }
   nav ul li a {
+    display: block;
+    padding: 0.5rem 1rem;
     color: white;
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
+    border-radius: 0.3rem;
+    transition: background-color 0.3s ease;
   }
   nav ul li a:hover {
-    text-decoration: underline;
+    background-color: var(--nav-hover);
   }
 
-  .card {
-    background: linear-gradient(145deg, #ffffff, #f9fafb);
+  .container {
+    background: #fff;
+    max-width: 700px;
+    width: 90%;
+    margin: 1rem auto 2rem; /* más cerca del nav */
     padding: 2rem;
-    border-radius: 2rem;
-    box-shadow: 0 12px 25px rgba(0,0,0,0.25), 0 6px 12px rgba(0,0,0,0.15);
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
-    max-width: 800px; /* cuadro blanco más ancho */
-    width: 95%;
-    min-height: 220px;
-    margin: 2rem auto;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(120deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.2) 100%);
-    transform: rotate(45deg);
-    animation: shine 3s linear infinite;
-    pointer-events: none;
-  }
-
-  @keyframes shine {
-    0% { transform: translateX(-100%) rotate(45deg); }
-    100% { transform: translateX(100%) rotate(45deg); }
   }
 
   h1 {
+    font-size: 2rem;
     color: var(--title-color);
-    font-size: 2.4rem;
-    margin: 0;
-    padding-bottom: 0.6rem;
-    border-bottom: 3px solid var(--title-color);
-    width: 80%;
-    text-align: center;
-    z-index: 1;
+    border-bottom: 2px solid var(--title-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
   }
 
   #result-box {
-    padding: 1.5rem;
-    font-size: 1.6rem;
-    border-radius: 1.2rem;
-    min-height: 60px;
-    width: 60%; /* azul más estrecho que el cuadro blanco */
+    width: 400px;       
+    max-width: 90%;     
+    margin: 0 auto;     
+    padding: 2rem;
+    background-color: var(--result-bg);
+    color: var(--result-color);
+    font-size: 1.8rem;
+    font-weight: bold;
+    border-radius: 1rem;
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--result-bg);
-    color: var(--result-color);
-    font-weight: bold;
-    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
-    user-select: none;
-    z-index: 1;
+    min-height: 80px;
   }
 
   #generate-btn {
-    padding: 1rem 2.5rem;
-    font-size: 1.4rem;
     background-color: var(--btn-green);
     color: white;
     border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1.2rem;
     border-radius: 0.6rem;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease;
     box-shadow: 0 4px 8px rgba(16, 185, 129, 0.4);
-    z-index: 1;
+    margin-top: 1rem;
   }
   #generate-btn:hover {
     background-color: var(--btn-green-hover);
-    transform: translateY(-2px);
-  }
-
-  @media (max-width: 500px) {
-    .card {
-      padding: 1.5rem;
-      min-height: 200px;
-    }
-    h1 {
-      font-size: 2rem;
-    }
-    #result-box {
-      font-size: 1.5rem;
-      padding: 1rem;
-      width: 80%;
-    }
-    #generate-btn {
-      font-size: 1.2rem;
-      padding: 0.8rem 2rem;
-    }
   }
 </style>
 </head>
@@ -162,13 +118,13 @@
 
 <nav>
   <ul>
-    <li><a href="https://cornetagang.github.io/hallamigosecreto/">Primer amigo secreto</a></li>
-    <li><a href="https://cornetagang.github.io/amigosecreto/">Volver al Sorteo</a></li>
-    <li><a href="https://cornetagang.github.io/listadeseos/">Lista de deseados</a></li>
+    <li><a href="https://cornetagang.github.io/hallamigosecreto/">Amigo Secreto</a></li>
+    <li><a href="https://cornetagang.github.io/presupuesto/">Presupuesto</a></li>
+    <li><a href="https://cornetagang.github.io/listadeseos/">Lista de Deseados</a></li>
   </ul>
 </nav>
 
-<div class="card">
+<div class="container">
   <h1>Presupuesto</h1>
   <div id="result-box">El presupuesto será: —</div>
   <button id="generate-btn">Generar Presupuesto</button>
