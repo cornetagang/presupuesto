@@ -6,10 +6,10 @@
 <link rel="icon" type="image/png" href="https://i.imgur.com/u71QEFc.png">
 <style>
   :root {
-    --accent: #FFD700;       /* dorado */
-    --accent-2: #c44536;     /* rojo intenso */
-    --bg-crema: #fdf6e3;     /* crema */
-    --nav-bg: #2563eb;       /* azul principal */
+    --accent: #FFD700;
+    --accent-2: #c44536;
+    --bg-crema: #fdf6e3;
+    --nav-bg: #2563eb;
     --nav-hover: #1d4ed8;
     --btn-green: #10b981;
     --btn-green-hover: #059669;
@@ -23,66 +23,76 @@
     background: var(--bg-crema);
     text-align: center;
     color: #333;
+    margin: 0;
     padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow-x: hidden;
   }
 
-  nav {
+  /* NAV AZUL */
+  nav#top-nav {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background-color: var(--nav-bg);
-    padding: 0.5rem 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     z-index: 9999;
   }
-  nav ul {
+
+  nav#top-nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
     justify-content: center;
+    align-items: center;
+    height: 60px;
   }
-  nav ul li a {
-    display: block;
-    padding: 0.5rem 1rem;
+
+  nav#top-nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
+    padding: 0.5rem 1rem;
     border-radius: 0.3rem;
     transition: background-color 0.3s ease;
   }
-  nav ul li a:hover {
+
+  nav#top-nav ul li a:hover {
     background-color: var(--nav-hover);
   }
 
+  /* CUADRO BLANCO GENERAL */
   .container {
     background: #fff;
     max-width: 700px;
-    margin: 2rem auto;
+    width: 90%;
+    margin: 40px auto 0 auto;
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1;
   }
 
   h1 {
     font-size: 2rem;
     color: var(--title-color);
-    text-align: center;
     border-bottom: 2px solid var(--title-color);
     padding-bottom: 0.5rem;
     margin-bottom: 2rem;
-    width: 95%;
-    max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
   }
 
+  /* RESULT BOX AZUL */
   #result-box {
-    width: 400px;
-    max-width: 90%;
+    width: 90%;
+    max-width: 500px;
     margin: 0 auto;
     padding: 2rem;
     background-color: var(--result-bg);
@@ -97,6 +107,7 @@
     min-height: 80px;
   }
 
+  /* BOTÓN VERDE */
   #generate-btn {
     background-color: var(--btn-green);
     color: white;
@@ -112,13 +123,24 @@
   #generate-btn:hover {
     background-color: var(--btn-green-hover);
   }
+
+  /* NIEVE */
+  .snow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
 </style>
 </head>
 <body>
 
-<nav>
+<nav id="top-nav">
   <ul>
-    <li><a href="https://cornetagang.github.io/hallamigosecreto/">Amigo Secreto</a></li>
+    <li><a href="https://cornetagang.github.io/hallamigosecreto/">Amigos Secretos</a></li>
     <li><a href="https://cornetagang.github.io/amigosecreto/">Volver al Sorteo</a></li>
     <li><a href="https://cornetagang.github.io/listadeseos/">Lista de Deseados</a></li>
   </ul>
@@ -130,17 +152,21 @@
   <button id="generate-btn">Generar Presupuesto</button>
 </div>
 
+<div class="snow">
+  <canvas id="snowfall"></canvas>
+</div>
+
 <script>
+  // Presupuesto random
   const btn = document.getElementById('generate-btn');
   const resultBox = document.getElementById('result-box');
 
   function getRandomBudget() {
-    return (Math.floor(Math.random() * 8) + 3) * 1000;
+    return (Math.floor(Math.random() * 8) + 3) * 1000; // 3000 a 10000 de 1000 en 1000
   }
 
   btn.addEventListener('click', () => {
     btn.disabled = true;
-
     let count = 0;
     const animationDuration = 2500;
     const intervalTime = 50;
@@ -156,6 +182,66 @@
       }
     }, intervalTime);
   });
+
+  // NIEVE
+  const snowflakeImage = new Image();
+  snowflakeImage.src = "https://static.vecteezy.com/system/resources/previews/019/922/808/non_2x/illustration-of-3d-snowflake-png.png";
+
+  const canvas = document.getElementById("snowfall");
+  const ctx = canvas.getContext("2d");
+  let width, height, particles = [];
+
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+
+  function createSnowflakes() {
+    particles = [];
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 4 + 1,
+        angle: Math.random() * Math.PI * 2,
+        rotationSpeed: Math.random() * 0.02 + 0.005,
+        vx: 0,
+        vy: Math.random() * 1 + 0.5
+      });
+    }
+  }
+
+  function updateSnowflakes() {
+    for (let p of particles) {
+      p.angle += p.rotationSpeed;
+      p.vy += 0.02;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.98;
+      p.vy *= 0.995;
+      if (p.y > height) { p.y = -10; p.x = Math.random() * width; p.vy = Math.random() * 1 + 0.5; }
+      if (p.x > width) p.x = 0;
+      else if (p.x < 0) p.x = width;
+    }
+  }
+
+  function drawSnowflakes() {
+    ctx.clearRect(0,0,width,height);
+    for (let p of particles) {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle);
+      ctx.drawImage(snowflakeImage, -p.r*3, -p.r*3, p.r*6, p.r*6);
+      ctx.restore();
+    }
+    updateSnowflakes();
+    requestAnimationFrame(drawSnowflakes);
+  }
+
+  window.addEventListener("resize", () => { resize(); createSnowflakes(); });
+  resize(); createSnowflakes();
+  if (snowflakeImage.complete) drawSnowflakes();
+  else snowflakeImage.onload = () => drawSnowflakes();
 </script>
 
 </body>
