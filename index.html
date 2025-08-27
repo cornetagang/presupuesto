@@ -6,10 +6,10 @@
 <link rel="icon" type="image/png" href="https://i.imgur.com/u71QEFc.png">
 <style>
   :root {
-    --accent: #FFD700;       
-    --accent-2: #c44536;     
-    --bg-crema: #fdf6e3;     
-    --nav-bg: #2563eb;       
+    --accent: #FFD700;       /* dorado */
+    --accent-2: #c44536;     /* rojo intenso */
+    --bg-crema: #fdf6e3;     /* crema */
+    --nav-bg: #2563eb;       /* azul principal */
     --nav-hover: #1d4ed8;
     --btn-green: #10b981;
     --btn-green-hover: #059669;
@@ -21,10 +21,9 @@
   body {
     font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     background: var(--bg-crema);
-    color: #333;
-    padding-top: 80px; /* espacio para nav */
     text-align: center;
-    margin: 0;
+    color: #333;
+    padding-top: 60px;
   }
 
   nav {
@@ -62,28 +61,29 @@
   .container {
     background: #fff;
     max-width: 700px;
-    width: 90%;
-    margin: 1rem auto 2rem; /* más cerca del nav */
+    margin: 2rem auto;
     padding: 2rem;
     border-radius: 1rem;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
   }
 
   h1 {
     font-size: 2rem;
     color: var(--title-color);
+    text-align: center;
     border-bottom: 2px solid var(--title-color);
     padding-bottom: 0.5rem;
     margin-bottom: 2rem;
+    width: 95%;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   #result-box {
-    width: 400px;       
-    max-width: 90%;     
-    margin: 0 auto;     
+    width: 400px;
+    max-width: 90%;
+    margin: 0 auto;
     padding: 2rem;
     background-color: var(--result-bg);
     color: var(--result-color);
